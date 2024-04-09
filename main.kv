@@ -1,0 +1,21 @@
+#:include mainmenu.kv
+#:include optionscreen.kv
+#:import utils kivy.utils
+#:import MapView kivy.garden.mapview.MapView
+#:import MarkerMapLayer kivy.garden.mapview.MarkerMapLayer
+#:import Widget kivy.app
+#:import StartingMap BusPathfindingApp.StartingMap
+
+FloatLayout:
+    ScreenManager: # part of kv package to manage different screen pages
+        id: screenManager # reference name
+
+        # screen to hold map, dropdown and info button
+        MainMenu:
+            name: "mainMenu"
+            id: mainMenu # reference name
+
+        # screen to hold different options and back button
+        OptionScreen:
+            name: "optionScreen"
+            id: optionScreen # reference name

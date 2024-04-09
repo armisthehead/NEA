@@ -1,0 +1,106 @@
+<OptionScreen>
+
+    # orders widgets sequentially in vertical direction
+    BoxLayout:
+        orientation: "vertical" # orientation of the BoxLayout
+        size: root.width, root.height # size of the BoxLayout
+
+        Label:
+            id: optionsBlank1
+            text: ""
+
+        # instructs user to select options
+        Label:
+            id: optionsLabel
+            text: "Please choose between the following options:"
+            font_size: 25 # size of text
+            halign: 'center'
+
+        Label:
+            id: roadBlockLabel
+            text: "Avoid road blocks?"
+            font_size: 18 # size of text
+            halign: 'center'
+
+        MDSwitch:
+            id: roadBlockSwitch
+            pos_hint: {"center_x": 0.5} # middle of x axis
+            active: False # switch is inactive
+            icon_active: "check" # check icon when active
+            track_color_active: "green" # green colour when active
+            track_color_inactive: "red" # red colour when inactive
+            thumb_color_active: "white" # white colour of thumb
+            on_active: root.switchValues()
+
+        Label:
+            id: busyRoadsLabel
+            text: "Avoid busy roads?"
+            font_size: 18 # size of text
+
+        MDSwitch:
+            id: busyRoadsSwitch
+            pos_hint: {"center_x": 0.5} # middle of x axis
+            active: False # switch is inactive
+            icon_active: "check" # check icon when active
+            track_color_active: "green" # green colour when active
+            track_color_inactive: "red" # red colour when inactive
+            thumb_color_active: "white" # white colour of thumb
+            on_active: root.switchValues()
+
+        Label:
+            id: busDelayLabel
+            text: "Avoid bus delays?"
+            font_size: 18 # size of text
+            halign: 'center'
+
+        MDSwitch:
+            id: busDelaySwitch
+            pos_hint: {"center_x": 0.5} # middle of x axis
+            active: False # switch is inactive
+            icon_active: "check" # check icon when active
+            track_color_active: "green" # green colour when active
+            track_color_inactive: "red" # red colour when inactive
+            thumb_color_active: "white" # white colour of thumb
+            on_active: root.switchValues()
+
+        Label:
+            id: optionsBlank2
+            text: ""
+
+        Label:
+            id: optionsBlank3
+            text: ""
+
+    FloatLayout:
+
+        # Continue button to move to userInputtedScreen
+        Button:
+            id: optionScreenContinue
+            size_hint: (.45, .05)
+            pos_hint: {"center_x": 0.5, "y": 0.1} # 50% space on right and left 90% and 10% space top bottom
+            text: "Continue" # text on button
+            background_color: 0, 0, 0, 0 # transparent background
+            disabled: False # button is enabled
+            on_release: root.changeScreen("routeScreen") # opens routeScreen
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex("#12428c")  # blue colour of continue button
+                RoundedRectangle:
+                    size: self.size # takes size of optionScreenContinue
+                    pos: self.pos # takes position of optionScreenContinue
+                    radius: [8]  # controls radius of corners
+
+        Button:
+            id: optionScreenBack
+            pos_hint: {"x": 0.07, "y": 0.885} # 7% space on left and 88.5% space top
+            size_hint: (.15, .09) # size of button
+            background_color: 0, 0, 0, 0 # transparent background
+
+            on_press: root.optionsBackPressed() # changes image to backbuttonpressed.png
+            on_release: root.changeScreen("mainMenu") # opens mainMenu.kv when released
+            on_release: root.optionsBackUnpressed() # changes image to backbuttonpressed.png
+            Image:
+                id: backButtonImage
+                source: "backbuttonunpressed.png" # image of back button unpressed
+                center_x: self.parent.center_x # centre of x axis of parent
+                center_y: self.parent.center_y # centre of y axis of parent

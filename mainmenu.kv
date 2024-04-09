@@ -1,0 +1,72 @@
+<MainMenu>
+
+    # popup to hold map
+    Popup:
+        auto_dismiss: False # stays on screen permanently
+        title: "" # empty title
+        size_hint: (.9, .45)
+        pos_hint: {"center_x": .5, "center_y": .75} # positioned above startingLabel
+
+        StartingMap: # map to be displayed
+            id: StartingMap
+            size_hint: (1, 1) # size of map
+            pos_hint: {"center_x": .5, "center_y": .5} # position of map
+
+    FloatLayout:
+        # list from BusPathfindingApp.py to be used in Spinner
+        startingList: app.startingList
+
+        Label:
+            id: startingLabel
+            text: "Please select your starting location" # prompt
+            font_size: 20 # size of text
+            pos_hint: {"center_x": .5, "center_y": .5} # places text middle of the screen
+
+        Spinner:
+            id: dropDownMenu
+            size_hint: (.45, .05) # size of button
+            pos_hint: {"center_x": 0.5, "y": 0.42} # 50% space on right and left 58% and 42% top and bottom
+            text: "Location" # text on button
+            values: root.startingList # values to choose from
+            background_color: 0, 0, 0, 0 # transparent background
+            on_text: root.dropDownMenuSelected(dropDownMenu.text) # allows selection of an option
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex("#12428c")  # blue colour of spinner
+                RoundedRectangle:
+                    size: self.size # takes size of spinner
+                    pos: self.pos # takes position of spinner
+                    radius: [8]  # controls radius of corners
+
+        Button:
+            id: mainMenuContinue
+            size_hint: (.45, .05)
+            pos_hint: {"center_x": 0.5, "y": 0.1} # 50% space on right and left 90% and 10% space top bottom
+            text: "Continue" # text on button
+            background_color: 0, 0, 0, 0 # transparent background
+            disabled: True # button is disabled until location is selected
+            on_release: root.changeScreen("optionScreen") # opens optionscreen.kv when button released
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex("#12428c")  # blue colour of continue button
+                RoundedRectangle:
+                    size: self.size # takes size of mainMenuContinue
+                    pos: self.pos # takes position of mainMenuContinue
+                    radius: [8]  # controls radius of corners
+
+        Button:
+            id: infoBtn
+            text: "i"
+            italic: True # makes text italic
+            font_size: 24 # size of text
+            size_hint: (.1, .05) # size of button
+            pos_hint: {"x": 0.1, "center_y": 0.5} # 10% space on left and middle of y axis
+            background_color: 0, 0, 0, 0 # transparent background
+            on_release: root.showInfo() # shows info when button is clicked
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex("#12428c")  # blue colour of info button
+                RoundedRectangle:
+                    size: self.size # takes size of infoBtn
+                    pos: self.pos # takes position of infoBtn
+                    radius: [8]  # controls radius of corners
